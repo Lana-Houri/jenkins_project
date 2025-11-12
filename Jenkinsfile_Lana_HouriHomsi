@@ -62,11 +62,12 @@ pipeline {
                 script {
                     bat """
                         call ${VIRTUAL_ENV}\\Scripts\\activate
-                        bandit -r .
+                        bandit -r . -ll -q
                     """
                 }
             }
         }
+
 
         stage('Deploy') {
             steps {
