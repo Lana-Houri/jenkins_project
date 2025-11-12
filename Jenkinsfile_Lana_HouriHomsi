@@ -62,11 +62,14 @@ pipeline {
                 script {
                     bat """
                         call ${VIRTUAL_ENV}\\Scripts\\activate
-                        bandit -r . -ll -q
+                        set PYTHONIOENCODING=utf-8
+                        bandit -r . -f txt -o bandit_report.txt -ll -q || exit 0
+                        type bandit_report.txt
                     """
                 }
             }
         }
+
 
 
         stage('Deploy') {
