@@ -71,12 +71,13 @@ pipeline {
             }
         }
 
-        stage('Lint') {
+       stage('Lint') {
             steps {
                 script {
                     bat """
                         call ${VIRTUAL_ENV}\\Scripts\\activate
-                        flake8 app.py
+                        pip show flake8
+                        python -m flake8 app.py
                     """
                 }
             }
@@ -87,11 +88,14 @@ pipeline {
                 script {
                     bat """
                         call ${VIRTUAL_ENV}\\Scripts\\activate
-                        pytest
+                        pip show pytest
+                        python -m pytest
                     """
                 }
             }
         }
+
+        
 
         stage('Deploy') {
             steps {
